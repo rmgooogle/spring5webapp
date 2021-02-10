@@ -28,14 +28,13 @@ public class BootStrapData implements CommandLineRunner {
 
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book ("Domain Driven Design", "123123");
+
         Publisher publisher = new Publisher();
         publisher.setAddress("Tomsk");
         publisher.setName("DovzhenkoIS");
         publisher.setState("without State");
         publisher.setZip("notNull");
-
         publisherRepo.save(publisher);
-
 
         System.out.println("That Publisher " + publisher.toString());
         System.out.println(" All publ= " + publisherRepo.count());
@@ -45,17 +44,16 @@ public class BootStrapData implements CommandLineRunner {
         publisherNew.setName("Bazhenov");
         publisherNew.setState(" Colorado");
         publisherNew.setZip("notNull");
-
         publisherRepo.save(publisherNew);
+
         System.out.println("That Publisher " + publisherNew.toString());
         System.out.println(" All publ= " + publisherRepo.count());
 
         Publisher publisherPop = new Publisher();
-        publisherNew.setAddress("Tayga");
-        publisherNew.setName("Popenkov");
-        publisherNew.setState("Siberian");
-        publisherNew.setZip("notNull");
-
+        publisherPop.setAddress("Tayga");
+        publisherPop.setName("Popenkov");
+        publisherPop.setState("Siberian");
+        publisherPop.setZip("notNull");
         publisherRepo.save(publisherPop);
         System.out.println("That Publisher " + publisherPop.toString());
         System.out.println(" All publ= " + publisherRepo.count());
@@ -85,10 +83,25 @@ public class BootStrapData implements CommandLineRunner {
         publisherRepo.save(publisher);
 
 
+         Author evgSal = new Author("Evg", "Sal");
+        Book herBook = new Book("Hello", "2223321232");
+        evgSal.getBooks().add(herBook);
+        herBook.getAuthors().add(evgSal);
+        herBook.setPublisher(publisherPop);
+        publisherPop.getBooks().add(herBook);
+
+        authorRepo.save(evgSal);
+        bookRepo.save(herBook);
+        publisherRepo.save(publisherPop);
+
+
+
         System.out.println("Starting");
         System.out.println("Numb " + bookRepo.count());
         System.out.println(" Publisher count " + publisherRepo.count());
         System.out.println("Publisher: numb of book " + publisher.getBooks().size());
+
+
 
     }
 }
